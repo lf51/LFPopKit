@@ -15,7 +15,7 @@ public protocol PQPopContentPro {
     
     var id:String { get }
     
-    func destinationPopView(_ vm:Self.ViewModel?) -> PopContent
+    func destinationPopView(_ vm:ViewModel?) -> PopContent
     func getPresentationDetent() -> Set<PresentationDetent>
 }
 
