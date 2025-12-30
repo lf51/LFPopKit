@@ -38,7 +38,9 @@ internal struct PQPopContentModifier: ViewModifier {
             .onReceive(PQManager.shared.publisher, perform: { popQueque in
                 
                     // la prima pop della coda viene mandata in view
-                    if let first = popQueque.first { self.destinationPopView = EraseContent(content: first) }
+                if let first = popQueque.first { self.destinationPopView = EraseContent(content: first) } else {
+                    self.destinationPopView = nil
+                }
                 
             })
            .sheet(item: $destinationPopView) { view in
