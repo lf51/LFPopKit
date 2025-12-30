@@ -8,9 +8,9 @@ import SwiftUI
 
 public extension View {
     
-    func pqAttachPopView() -> some View {
-        
-        modifier(PQPopContentModifier())
+    func injectionViewModel<ViewModel:ObservableObject>(_ vm:ViewModel) -> some View {
+    
+        modifier(PQPopContentModifier(vm: vm))
 
     }
 }
