@@ -11,11 +11,11 @@ import Combine
 public protocol PQPopContentPro {
     
     associatedtype PopContent: View
-    associatedtype ViewModel: ObservableObject
+   //associatedtype ViewModel: ObservableObject
     
     var id:String { get }
     
-    func destinationPopView(_ vm:ViewModel?) -> PopContent
+    func destinationPopView() -> PopContent
     func getPresentationDetent() -> Set<PresentationDetent>
 }
 

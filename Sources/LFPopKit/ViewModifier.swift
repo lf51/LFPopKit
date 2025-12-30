@@ -11,26 +11,26 @@ import Combine
 internal struct EraseContent:Identifiable {
     
     typealias DestinationPopView = AnyView
-    typealias ViewModel = AnyObject
+   // typealias ViewModel = AnyObject
     
     let id:String
     
-    private let _destinationPopView: (_ vm:ViewModel?) -> DestinationPopView
+    private let _destinationPopView: () -> DestinationPopView
     let getPresentationDetent: () -> Set<PresentationDetent>
     
     init<C:PQPopContentPro>(content: C) {
         
         self.id = content.id
      
-        self._destinationPopView = { vm in
+        self._destinationPopView = { //vm in
     
-            DestinationPopView(content.destinationPopView(vm as? C.ViewModel) )
+            DestinationPopView(content.destinationPopView() )
         }
         self.getPresentationDetent = content.getPresentationDetent
     }
     
-    func showDestination(_ vm:ViewModel?) -> some View {
-        _destinationPopView(vm)
+    func showDestination() -> some View {
+        _destinationPopView()
     }
 }
 
@@ -55,9 +55,14 @@ internal struct PQPopContentModifier<ViewModel:ObservableObject>: ViewModifier {
             })
            .sheet(item: $destinationPopView) { view in
                
-               view.showDestination(vm)
-                    .presentationDetents(view.getPresentationDetent())
+               if let vm {
+                   view.showDestination()
+                       .environmentObject(vm)
+                       .presentationDetents(view.getPresentationDetent())
+               } else {
+                   view.showDestination()
+                       .presentationDetents(view.getPresentationDetent())
+               }
             }
-        
         }
 }
