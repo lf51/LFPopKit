@@ -11,11 +11,5 @@ public extension View {
     func pqAttachPopModifier<ViewModel:ObservableObject>(_ vm:ViewModel) -> some View {
     
         modifier(PQPopContentModifier(vm: vm))
-   /* #if targetEnvironment(macCatalyst)
-        modifier(PQPopContentModifier(vm: vm))
-        #else
-        modifier(PQPopContentModifier<ViewModel>(vm: nil))
-    #endif*/
-
     }
 }
